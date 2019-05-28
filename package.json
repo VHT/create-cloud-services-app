@@ -1,0 +1,24 @@
+{
+  "name": "@vht/create-cloud-services-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Create a UI application for the VHT Cloud Services framework. This depends on private packages and is not intended for public use.",
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": "0.0.0",
+    "yarn": ">=1.16.0"
+  },
+  "bin": {
+    "create-cloud-services-app": "bin/create-cloud-services-app.js"
+  },
+  "dependencies": {
+    "chalk": "2.4.2",
+    "prompt": "1.0.0",
+    "shelljs": "0.8.3",
+    "tar": "4.4.8"
+  }
+}
