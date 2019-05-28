@@ -109,8 +109,8 @@ function modifyTemplateFiles(config) {
 function modifyPackageJson(config) {
   const packageJsonPath = path.join(cwd, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-  const updatedPackageJson = Object.assign({}, packageJson, config);
-  fs.writeFileSync(packageJsonPath, JSON.stringify(updatedPackageJson, null, 2));
+  packageJson.description = config.description});
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 }
 
 function installDeps() {
