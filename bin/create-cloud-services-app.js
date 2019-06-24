@@ -30,24 +30,22 @@ function isDirEmpty(path) {
 
 function preCreateChecks() {
   if (!isDirEmpty(cwd)) {
-    console.warn('This directory is not empty.');
-    console.warn('You should run this command from a new empty directory where the project will be created.');
+    console.warn(chalk.yellow('This directory is not empty.'));
+    console.warn(chalk.yellow('You should run this command from a new empty directory where the project will be created.'));
     process.exit(1);
   }
 }
 
 function create(config) {
-  console.log('[1/4] Copying template files...');
+  console.log(chalk.green('🚜 Copying template files...'));
   copyTemplate()
     .then(() => {
       modifyTemplateFiles(config);
-      console.log('[2/4] Updating package.json...');
+      console.log(chalk.green('🚜  Updating package.json...');
       modifyPackageJson(config);
-      console.log('[3/4] Installing dependencies...');
+      console.log(chalk.green('🚜  Installing dependencies...');
       installDeps();
       installPeerDeps();
-      console.log('[4/4] Upgrading dependencies...');
-      upgradeDeps();
       success();
     })
     .catch(err => {
@@ -138,13 +136,6 @@ function installPeerDeps() {
     shell.exit(1);
   }
   installDeps();
-}
-
-function upgradeDeps() {
-  if (shell.exec('yarn run upgradevht').code !== 0) {
-    shell.echo('Error: Yarn upgrade failed');
-    shell.exit(1);
-  }
 }
 
 function success() {
