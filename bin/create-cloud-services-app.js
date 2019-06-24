@@ -24,6 +24,18 @@ const promptSchema = {
   },
 };
 
+function isDirEmpty(path) {
+  return fs.readdirSync(path).length === 0;
+}
+
+function preCreateChecks() {
+  if (!isDirEmpty(cwd)) {
+    console.warn('This directory is not empty.');
+    console.warn('You should run this command from a new empty directory where the project will be created.');
+    process.exit(1);
+  }
+}
+
 function create(config) {
   console.log('[1/4] Copying template files...');
   copyTemplate()
@@ -35,7 +47,7 @@ function create(config) {
       installDeps();
       installPeerDeps();
       console.log('[4/4] Upgrading dependencies...');
-      // upgradeDeps();
+      upgradeDeps();
       success();
     })
     .catch(err => {
@@ -128,12 +140,12 @@ function installPeerDeps() {
   installDeps();
 }
 
-// function upgradeDeps() {
-//   if (shell.exec('yarn run upgrade-vht').code !== 0) {
-//     shell.echo('Error: Yarn upgrade failed');
-//     shell.exit(1);
-//   }
-// }
+function upgradeDeps() {
+  if (shell.exec('yarn run upgradevht').code !== 0) {
+    shell.echo('Error: Yarn upgrade failed');
+    shell.exit(1);
+  }
+}
 
 function success() {
   console.log('');
@@ -148,6 +160,7 @@ prompt.delimiter = '';
 
 console.log('');
 console.log(chalk.blue('Create a new VHT Cloud Services UI project.'));
+preCreateChecks();
 console.log(chalk.blue('Enter project details:'));
 prompt.get(promptSchema, (err, responses) => {
   if (err) {
