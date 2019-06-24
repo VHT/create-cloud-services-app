@@ -41,9 +41,9 @@ function create(config) {
   copyTemplate()
     .then(() => {
       modifyTemplateFiles(config);
-      console.log(chalk.green('🚜  Updating package.json...');
+      console.log(chalk.green('🚜 Updating package.json...'));
       modifyPackageJson(config);
-      console.log(chalk.green('🚜  Installing dependencies...');
+      console.log(chalk.green('🚜 Installing dependencies...'));
       installDeps();
       installPeerDeps();
       success();
