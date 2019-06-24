@@ -121,7 +121,7 @@ function modifyTemplateFiles(config) {
 function modifyPackageJson(config) {
   const packageJsonPath = path.join(cwd, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-  packageJson.description = config.description});
+  packageJson.description = config.description;
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 }
 
