@@ -7,6 +7,10 @@ const prompt = require('prompt');
 const chalk = require('chalk');
 const tar = require('tar');
 
+function camelCase(str){
+  return str.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+}
+
 const cwd = path.resolve('./');
 const templateRepoName = 'vht-cloud-services-ui-template';
 const defaultProjectName = path.basename(cwd);
@@ -15,6 +19,11 @@ const promptSchema = {
     name: {
       description: 'Project Name:',
       default: defaultProjectName,
+      required: true,
+    },
+    camelCaseName: {
+      description: 'Camel Cased Project Name:',
+      default: camelCase(defaultProjectName),
       required: true,
     },
     description: {
@@ -102,6 +111,7 @@ function modifyTemplateFiles(config) {
 
     const newContent = content
       .replace(/{{application-name}}/gm, config.name)
+      .replace(/{{camel-application-name}}/gm, config.camelCaseName)
       .trim();
     fs.writeFileSync(file, `${newContent}\n`);
   });
