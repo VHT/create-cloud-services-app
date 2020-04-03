@@ -1,6 +1,6 @@
 {
   "name": "@vht/create-cloud-services-app",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "main": "index.js",
   "description": "Create a UI application for the VHT Cloud Services framework. This depends on private packages and is not intended for public use.",
   "license": "UNLICENSED",
