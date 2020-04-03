@@ -13,17 +13,23 @@ function camelCase(str){
 
 const cwd = path.resolve('./');
 const templateRepoName = 'vht-cloud-services-ui-template';
-const defaultProjectName = path.basename(cwd);
+const defaultRepoName = path.basename(cwd);
+const defaultAppName = defaultRepoName.replace(/-ui/gm, '');
 const promptSchema = {
   properties: {
-    name: {
-      description: 'Project Name:',
-      default: defaultProjectName,
+    repoName: {
+      description: 'Repo Name: (my-app-ui)',
+      default: defaultRepoName,
       required: true,
     },
-    camelCaseName: {
-      description: 'Camel Cased Project Name:',
-      default: camelCase(defaultProjectName),
+    appName: {
+      description: 'App Name: (my-app)',
+      default: defaultAppName,
+      required: true,
+    },
+    camelCaseAppName: {
+      description: 'Camel Cased App Name: (myApp)',
+      default: camelCase(defaultAppName),
       required: true,
     },
     description: {
@@ -110,8 +116,9 @@ function modifyTemplateFiles(config) {
     const content = fs.readFileSync(file, 'utf8');
 
     const newContent = content
-      .replace(/{{application-name}}/gm, config.name)
-      .replace(/{{camel-application-name}}/gm, config.camelCaseName)
+      .replace(/{{repo-name}}/gm, config.repoName)
+      .replace(/{{application-name}}/gm, config.appName)
+      .replace(/{{camel-application-name}}/gm, config.camelCaseAppName)
       .trim();
     fs.writeFileSync(file, `${newContent}\n`);
   });
