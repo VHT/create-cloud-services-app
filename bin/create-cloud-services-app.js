@@ -127,7 +127,7 @@ function modifyTemplateFiles(config) {
   dirs.forEach(dir => {
     const dirName = path.basename(dir);
     if (dirName.indexOf('{{application-name}}') > -1) {
-      const newName = path.resolve(path.dirname(dir), dirName.replace('{{application-name}}', config.name));
+      const newName = path.resolve(path.dirname(dir), dirName.replace('{{application-name}}', config.appName));
       fs.renameSync(dir, newName);
     }
   });
